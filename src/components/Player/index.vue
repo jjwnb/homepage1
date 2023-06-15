@@ -1,22 +1,7 @@
 <template>
-  <aplayer
-    showLrc
-    ref="player"
-    v-if="playList[0]"
-    :music="playList[playIndex]"
-    :list="playList"
-    :autoplay="autoplay"
-    :theme="theme"
-    :repeat="repeat"
-    :shuffle="shuffle"
-    :listMaxHeight="listMaxHeight"
-    :listFolded="listFolded"
-    :volume="volume"
-    @play="onPlay"
-    @pause="onPause"
-    @timeupdate="onTimeUp"
-    @onSelectSong="onSelectSong"
-  />
+  <aplayer showLrc ref="player" v-if="playList[0]" :music="playList[playIndex]" :list="playList" :autoplay="autoplay"
+    :theme="theme" :repeat="repeat" :shuffle="shuffle" :listMaxHeight="listMaxHeight" :listFolded="listFolded"
+    :volume="volume" @play="onPlay" @pause="onPause" @timeupdate="onTimeUp" @onSelectSong="onSelectSong" />
 </template>
  
 <script setup>
@@ -90,7 +75,7 @@ const props = defineProps({
   // id
   songId: {
     type: String,
-    default: "7452421335",
+    default: "2208404780",
   },
   // 列表是否默认折叠
   listFolded: {
@@ -124,8 +109,8 @@ onMounted(() => {
         // 生成歌单
         res.forEach((v) => {
           playList.value.push({
-            title: v.name,
-            artist: v.artist,
+            title: v.title,
+            artist: v.author,
             src: v.url,
             pic: v.pic,
             lrc: v.lrc,
@@ -219,75 +204,87 @@ defineExpose({ playToggle, changeVolume, changeSong });
   width: 80%;
   background: transparent;
   border-radius: 6px;
+
   :deep(.aplayer-body) {
     .aplayer-pic {
       display: none;
     }
+
     .aplayer-info {
       margin-left: 0;
       background-color: #ffffff40;
       border-color: transparent;
+
       .aplayer-music {
         flex-grow: initial;
         margin-bottom: 2px;
         overflow: initial;
+
         .aplayer-title {
           font-size: 16px;
           margin-right: 6px;
         }
+
         .aplayer-author {
           color: #efefef;
         }
       }
+
       .aplayer-lrc {
         text-align: left;
         margin: 4px 0 6px 6px;
         height: 100%;
-        mask: linear-gradient(
-          #fff 15%,
-          #fff 85%,
-          hsla(0deg, 0%, 100%, 0.6) 90%,
-          hsla(0deg, 0%, 100%, 0)
-        );
-        -webkit-mask: linear-gradient(
-          #fff 15%,
-          #fff 85%,
-          hsla(0deg, 0%, 100%, 0.6) 90%,
-          hsla(0deg, 0%, 100%, 0)
-        );
+        mask: linear-gradient(#fff 15%,
+            #fff 85%,
+            hsla(0deg, 0%, 100%, 0.6) 90%,
+            hsla(0deg, 0%, 100%, 0));
+        -webkit-mask: linear-gradient(#fff 15%,
+            #fff 85%,
+            hsla(0deg, 0%, 100%, 0.6) 90%,
+            hsla(0deg, 0%, 100%, 0));
+
         &::before,
         &::after {
           display: none;
         }
+
         p {
           color: #efefef;
         }
+
         .aplayer-lrc-current {
           font-size: 0.95rem;
           margin-bottom: 4px !important;
         }
       }
+
       .aplayer-controller {
         display: none;
       }
     }
   }
+
   :deep(.aplayer-list) {
     margin-top: 6px;
+
     ol {
       &::-webkit-scrollbar-track {
         background-color: transparent;
       }
+
       li {
         border-color: transparent;
+
         &.aplayer-list-light {
           background: #ffffff40;
           border-radius: 6px;
         }
+
         &:hover {
           background: #ffffff26 !important;
           border-radius: 6px !important;
         }
+
         .aplayer-list-index,
         .aplayer-list-author {
           color: #efefef;

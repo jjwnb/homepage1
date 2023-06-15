@@ -43,7 +43,7 @@ import MoreSet from "@/views/MoreSet/index.vue";
 import cursorInit from "@/utils/cursor.js";
 import config from "@/../package.json";
 // 新春灯笼
-import "@/utils/lantern.js";
+// import "@/utils/lantern.js";
 
 const store = mainStore();
 
@@ -99,7 +99,7 @@ onMounted(() => {
   let styleTitle1 = "font-size: 20px;font-weight: 600;color: rgb(244,167,89);";
   let styleTitle2 = "font-size:12px;color: rgb(244,167,89);";
   let styleContent = "color: rgb(30,152,255);";
-  let title1 = "無名の主页";
+  let title1 = "kuhuaの主页";
   let title2 = `
  _____ __  __  _______     ____     __
 |_   _|  \\/  |/ ____\\ \\   / /\\ \\   / /

@@ -85,10 +85,12 @@ watch(
     align-items: center;
     animation: fade;
     -webkit-animation: fade 0.5s;
+
     .logo-img {
       border-radius: 50%;
       width: 120px;
     }
+
     .name {
       width: 100%;
       margin-left: 12px;
@@ -97,23 +99,29 @@ watch(
 
       .bg {
         font-size: 5rem;
+
       }
 
       .sm {
+
         margin-left: 6px;
         font-size: 2rem;
+
         @media (min-width: 720px) and (max-width: 789px) {
           display: none;
         }
       }
     }
+
     @media (max-width: 768px) {
       .logo-img {
         width: 100px;
       }
+
       .name {
         .bg {
           font-size: 4.5rem;
+
         }
       }
     }
@@ -136,6 +144,7 @@ watch(
         margin-right: auto;
 
         p {
+
           &:nth-of-type(1) {
             font-family: "Pacifico-Regular";
           }
@@ -146,6 +155,7 @@ watch(
         align-self: flex-end;
       }
     }
+
     @media (max-width: 720px) {
       max-width: 100%;
       pointer-events: none;

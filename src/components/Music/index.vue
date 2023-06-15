@@ -1,101 +1,44 @@
 <template>
   <!-- 音乐控制面板 -->
-  <div
-    class="music"
-    @mouseenter="volumeShow = true"
-    @mouseleave="volumeShow = false"
-    v-show="store.musicOpenState"
-  >
+  <div class="music" @mouseenter="volumeShow = true" @mouseleave="volumeShow = false" v-show="store.musicOpenState">
     <div class="btns">
       <span @click="musicListShow = true">音乐列表</span>
       <span @click="store.musicOpenState = false">回到一言</span>
     </div>
     <div class="control">
-      <go-start
-        theme="filled"
-        size="30"
-        fill="#efefef"
-        @click="changeMusicIndex(0)"
-      />
+      <go-start theme="filled" size="30" fill="#efefef" @click="changeMusicIndex(0)" />
       <div class="state" @click="changePlayState">
-        <play-one
-          theme="filled"
-          size="50"
-          fill="#efefef"
-          v-show="!store.playerState"
-        />
-        <pause
-          theme="filled"
-          size="50"
-          fill="#efefef"
-          v-show="store.playerState"
-        />
+        <play-one theme="filled" size="50" fill="#efefef" v-show="!store.playerState" />
+        <pause theme="filled" size="50" fill="#efefef" v-show="store.playerState" />
       </div>
-      <go-end
-        theme="filled"
-        size="30"
-        fill="#efefef"
-        @click="changeMusicIndex(1)"
-      />
+      <go-end theme="filled" size="30" fill="#efefef" @click="changeMusicIndex(1)" />
     </div>
     <div class="menu">
       <div class="name" v-show="!volumeShow">
         <span>{{
           store.getPlayerData.name
-            ? store.getPlayerData.name + " - " + store.getPlayerData.artist
-            : "未播放音乐"
+          ? store.getPlayerData.name + " - " + store.getPlayerData.artist
+          : "未播放音乐"
         }}</span>
       </div>
       <div class="volume" v-show="volumeShow">
         <div class="icon">
-          <volume-mute
-            theme="filled"
-            size="24"
-            fill="#efefef"
-            v-if="volumeNum == 0"
-          />
-          <volume-small
-            theme="filled"
-            size="24"
-            fill="#efefef"
-            v-else-if="volumeNum > 0 && volumeNum < 0.7"
-          />
+          <volume-mute theme="filled" size="24" fill="#efefef" v-if="volumeNum == 0" />
+          <volume-small theme="filled" size="24" fill="#efefef" v-else-if="volumeNum > 0 && volumeNum < 0.7" />
           <volume-notice theme="filled" size="24" fill="#efefef" v-else />
         </div>
-        <el-slider
-          v-model="volumeNum"
-          :show-tooltip="false"
-          :min="0"
-          :max="1"
-          :step="0.01"
-        />
+        <el-slider v-model="volumeNum" :show-tooltip="false" :min="0" :max="1" :step="0.01" />
       </div>
     </div>
   </div>
   <!-- 音乐列表弹窗 -->
   <Transition name="fade">
-    <div
-      class="music-list"
-      v-show="musicListShow"
-      @click="musicListShow = false"
-    >
+    <div class="music-list" v-show="musicListShow" @click="musicListShow = false">
       <Transition name="zoom">
         <div class="list" v-show="musicListShow" @click.stop>
-          <close-one
-            class="close"
-            theme="filled"
-            size="28"
-            fill="#ffffff60"
-            @click="musicListShow = false"
-          />
-          <Player
-            :songServer="playerData.server"
-            :songType="playerData.type"
-            :songId="playerData.id"
-            :volume="volumeNum"
-            :shuffle="true"
-            ref="playerRef"
-          />
+          <close-one class="close" theme="filled" size="28" fill="#ffffff60" @click="musicListShow = false" />
+          <Player :songServer="playerData.server" :songType="playerData.type" :songId="playerData.id" :volume="volumeNum"
+            :shuffle="true" ref="playerRef" />
         </div>
       </Transition>
     </div>
@@ -124,8 +67,8 @@ let volumeNum = ref(store.musicVolume ? store.musicVolume : 0.7);
 
 // 播放列表数据
 let musicListShow = ref(false);
-const playerRef = ref(null);
-const musicDialog = ref(null);
+const playerRef = ref(true);
+const musicDialog = ref(true);
 const playerData = reactive({
   server: import.meta.env.VITE_SONG_SERVER,
   type: import.meta.env.VITE_SONG_TYPE,
@@ -175,10 +118,12 @@ watch(
   flex-direction: column;
   animation: fade;
   -webkit-animation: fade 0.5s;
+
   .btns {
     display: flex;
     align-items: center;
     margin-bottom: 6px;
+
     span {
       background: #ffffff26;
       padding: 2px 8px;
@@ -187,17 +132,20 @@ watch(
       text-overflow: ellipsis;
       overflow-x: hidden;
       white-space: nowrap;
+
       &:hover {
         background: #ffffff4d;
       }
     }
   }
+
   .control {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-evenly;
     width: 100%;
+
     .state {
       .i-icon {
         width: 50px;
@@ -205,6 +153,7 @@ watch(
         display: block;
       }
     }
+
     .i-icon {
       width: 36px;
       height: 36px;
@@ -214,14 +163,17 @@ watch(
       justify-content: center;
       border-radius: 6px;
       transform: scale(1);
+
       &:hover {
         background: #ffffff33;
       }
+
       &:active {
         transform: scale(0.95);
       }
     }
   }
+
   .menu {
     height: 26px;
     width: 100%;
@@ -230,6 +182,7 @@ watch(
     flex-direction: column;
     align-items: center;
     justify-content: center;
+
     .name {
       width: 100%;
       text-align: center;
@@ -239,6 +192,7 @@ watch(
       animation: fade;
       -webkit-animation: fade 0.3s;
     }
+
     .volume {
       width: 100%;
       padding: 0 12px;
@@ -247,20 +201,25 @@ watch(
       flex-direction: row;
       animation: fade;
       -webkit-animation: fade 0.3s;
+
       .icon {
         margin-right: 12px;
+
         span {
           width: 24px;
           height: 24px;
           display: block;
         }
       }
+
       :deep(*) {
         transition: none;
       }
+
       :deep(.el-slider__button) {
         transition: 0.3s;
       }
+
       .el-slider {
         margin-right: 12px;
         --el-slider-main-bg-color: #efefef;
@@ -270,6 +229,7 @@ watch(
     }
   }
 }
+
 .music-list {
   position: fixed;
   top: 0;
@@ -280,6 +240,7 @@ watch(
   background-color: #00000080;
   backdrop-filter: blur(20px);
   z-index: 1;
+
   .list {
     position: absolute;
     display: flex;
@@ -292,10 +253,12 @@ watch(
     background-color: #ffffff66;
     border-radius: 6px;
     z-index: 999;
+
     @media (max-width: 720px) {
-    left: calc(50% - 45%);
-    width: 90%;
+      left: calc(50% - 45%);
+      width: 90%;
     }
+
     .close {
       position: absolute;
       top: 12px;
@@ -303,9 +266,11 @@ watch(
       width: 28px;
       height: 28px;
       display: block;
+
       &:hover {
         transform: scale(1.2);
       }
+
       &:active {
         transform: scale(0.95);
       }
@@ -317,20 +282,25 @@ watch(
 .fade-enter-active {
   animation: fade 0.3s ease-in-out;
 }
+
 .fade-leave-active {
   animation: fade 0.3s ease-in-out reverse;
 }
+
 .zoom-enter-active {
   animation: zoom 0.4s ease-in-out;
 }
+
 .zoom-leave-active {
   animation: zoom 0.3s ease-in-out reverse;
 }
+
 @keyframes zoom {
   0% {
     opacity: 0;
     transform: scale(0) translateY(-600px);
   }
+
   100% {
     opacity: 1;
     transform: scale(1) translateY(0);
